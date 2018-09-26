@@ -5,3 +5,4 @@ tags        = {
     cloud   = "Azure"
     env     = "Demo"
 }
+sqladmin    = "pnwAdmin"
