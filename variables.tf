@@ -18,3 +18,7 @@ variable "sqladmin" {
 variable "sqlpwd" {
     description             = "Password for MySQL administrator account"
 }
+
+variable "mysql" {
+    description             = "MySQL Server instance name"
+}

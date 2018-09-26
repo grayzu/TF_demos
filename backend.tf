@@ -20,5 +20,23 @@ resource "azurerm_mysql_server" "ghost-be" {
   administrator_login = "${var.sqladmin}"
   administrator_login_password = "${var.sqlpwd}"
   version = "5.7"
-  ssl_enforcement = "Enabled"
+  ssl_enforcement = "Disabled"
+}
+
+resource "azurerm_mysql_database" "ghost" {
+  name                = "ghost"
+  resource_group_name = "${var.rg}"
+  server_name         = "${azurerm_mysql_server.ghost-be.name}"
+  charset             = "utf8"
+  collation           = "utf8_unicode_ci"
+}
+
+resource "azurerm_mysql_firewall_rule" "allow-ghost-fe" {
+  name                  = "allow-ghost-fe"
+  resource_group_name   = "${var.rg}"
+
+  server_name           = "${azurerm_mysql_server.ghost-be.name}"
+
+  start_ip_address      = "0.0.0.0"
+  end_ip_address        = "255.255.255.255"
 }

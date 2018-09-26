@@ -6,3 +6,4 @@ tags        = {
     env     = "Demo"
 }
 sqladmin    = "pnwAdmin"
+mysql       = "ghost-backend"

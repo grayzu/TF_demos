@@ -16,7 +16,7 @@ resource "azurerm_container_group" "ghost" {
         environment_variables {
             "database__client"                  = "mysql"
             "database__connection__host"        = "${azurerm_mysql_server.ghost-be.fqdn}"
-            "database__connection__user"        = "${var.sqladmin}"
+            "database__connection__user"        = "${var.sqladmin}@${var.mysql}"
             "database__connection__password"    = "${var.sqlpwd}"
             "database__connection__database"    = "ghost"
         }
