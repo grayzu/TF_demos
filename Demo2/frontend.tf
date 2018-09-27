@@ -12,14 +12,6 @@ resource "azurerm_container_group" "ghost" {
         image                   = "ghost:alpine"
         cpu                     = "0.5"
         memory                  = "1.0"
-
-        environment_variables {
-            "database__client"                  = "mysql"
-            "database__connection__host"        =  "ghost4pnwriders.c2tgtuxyi63o.us-east-1.rds.amazonaws.com"           #"${azurerm_mysql_server.ghost-be.fqdn}"
-            "database__connection__user"        =  "pnwAdmin"           #"${var.sqladmin}@${var.mysql}"
-            "database__connection__password"    =  "${var.sqlpwd}"
-            "database__connection__database"    = "ghost"
-        }
     }
 
     container {

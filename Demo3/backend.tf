@@ -1,4 +1,4 @@
-
+resource "aws_db_instance" "ghost" {}
 
 
 
