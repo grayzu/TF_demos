@@ -15,9 +15,9 @@ resource "azurerm_container_group" "ghost" {
 
         environment_variables {
             "database__client"                  = "mysql"
-            "database__connection__host"        = "${azurerm_mysql_server.ghost-be.fqdn}"
-            "database__connection__user"        = "${var.sqladmin}@${var.mysql}"
-            "database__connection__password"    = "${var.sqlpwd}"
+            "database__connection__host"        =  "ghost4pnwriders.c2tgtuxyi63o.us-east-1.rds.amazonaws.com"           #"${azurerm_mysql_server.ghost-be.fqdn}"
+            "database__connection__user"        =  "pnwAdmin"           #"${var.sqladmin}@${var.mysql}"
+            "database__connection__password"    =  "${var.sqlpwd}"
             "database__connection__database"    = "ghost"
         }
     }
@@ -30,12 +30,3 @@ resource "azurerm_container_group" "ghost" {
         port                    = "80"
     }
 }
-
-# resource "azurerm_traffic_manager_endpoint" "ig2018pnwrider-fe" {
-#   name                      = "pnwrider-fe"
-#   resource_group_name       = "${var.rg}"
-#   profile_name              = "${azurerm_traffic_manager_profile.ig2018-rg.name}"
-#   type                      = "azureEndpoints"
-#   target_resource_id        = "${azurerm_container_group.ghost.id}"
-#   weight                    = 100
-# }
