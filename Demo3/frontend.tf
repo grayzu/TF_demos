@@ -15,10 +15,10 @@ resource "azurerm_container_group" "ghost" {
 
         # environment_variables {
         #     "database__client"                  = "mysql"
-        #     "database__connection__host"        =  "ghost4pnwriders.c2tgtuxyi63o.us-east-1.rds.amazonaws.com"           #"${azurerm_mysql_server.ghost-be.fqdn}"
-        #     "database__connection__user"        =  "pnwAdmin"           #"${var.sqladmin}@${var.mysql}"
+        #     "database__connection__host"        =  "${aws_db_instance.ghost.address}"   #"ghost4pnwriders.c2tgtuxyi63o.us-east-1.rds.amazonaws.com"           #"${azurerm_mysql_server.ghost-be.fqdn}"
+        #     "database__connection__user"        =  "${aws_db_instance.ghost.username}"    #"pnwAdmin"           #"${var.sqladmin}@${var.mysql}"
         #     "database__connection__password"    =  "${var.sqlpwd}"
-        #     "database__connection__database"    = "ghost"
+        #     "database__connection__database"    =  "${aws_db_instance.ghost.name}"   #"ghost"
         # }
     }
 

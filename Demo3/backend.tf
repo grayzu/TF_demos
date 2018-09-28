@@ -1,4 +1,6 @@
-resource "aws_db_instance" "ghost" {}
+# resource "aws_db_instance" "ghost" {
+  
+# }
 
 
 
@@ -58,6 +60,22 @@ resource "aws_db_instance" "ghost" {}
 #     storage_type                        = "gp2"
 #     username                            = "pnwAdmin"
 # }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
