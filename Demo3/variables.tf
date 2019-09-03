@@ -22,3 +22,7 @@ variable "sqlpwd" {
 variable "mysql" {
     description             = "MySQL Server instance name"
 }
+
+variable "dbname" {
+    description             = "Name of the MySQL database to be used by Ghost"
+}

@@ -1,5 +1,5 @@
-rg          = "ig2018pnwrider"
-loc         = "eastus2"
+rg          = "tfdemo012"
+loc         = "westus2"
 tags        = {
     app     = "Ghost"
     cloud   = "Azure"
@@ -7,3 +7,4 @@ tags        = {
 }
 sqladmin    = "pnwAdmin"
 mysql       = "ghost-backend"
+dbname      = "ghost"

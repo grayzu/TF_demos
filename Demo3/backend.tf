@@ -1,6 +1,53 @@
-# resource "aws_db_instance" "ghost" {
-  
-# }
+
+##############################################
+##              Roles Demo                  ##
+##                                          ##
+##  Same demo with breaking out by role     ##
+##  to make management easier               ##
+##############################################
+
+# Use to provision MySQL backend for ghost
+resource "azurerm_mysql_server" "ghost-be" {
+    name                = "ghost-backend"
+    location            = var.loc
+    resource_group_name = azurerm_resource_group.ghost-rg.name
+
+    sku {
+        name = "B_Gen5_2"
+        capacity = 2
+        tier = "Basic"
+        family = "Gen5"
+    }
+
+    storage_profile {
+        storage_mb = 5120
+        backup_retention_days = 7
+        geo_redundant_backup = "Disabled"
+    }
+
+    administrator_login = var.sqladmin
+    administrator_login_password = var.sqlpwd
+    version = "5.7"
+    ssl_enforcement = "Disabled"
+}
+
+resource "azurerm_mysql_database" "ghost" {
+    name                = var.dbname
+    resource_group_name = azurerm_resource_group.ghost-rg.name
+    server_name         = azurerm_mysql_server.ghost-be.name
+    charset             = "utf8"
+    collation           = "utf8_unicode_ci"
+}
+
+resource "azurerm_mysql_firewall_rule" "allow-ghost-fe" {
+    name                  = "allow-ghost-fe"
+    resource_group_name   = azurerm_resource_group.ghost-rg.name
+
+    server_name           = azurerm_mysql_server.ghost-be.name
+
+    start_ip_address      = "0.0.0.0"     # Allow only internal Azure IP
+    end_ip_address        = "0.0.0.0"     # Allow only internal Azure IP
+}
 
 
 
@@ -34,9 +81,9 @@
 
 
 
-
-
-
+##############################################
+##              AWS Backend                 ##
+##############################################
 
 # resource "aws_db_instance" "ghost" {
 #     allocated_storage                   = 20
@@ -94,8 +141,8 @@
 # # Use to provision MySQL backend for ghost
 # resource "azurerm_mysql_server" "ghost-be" {
 #   name                = "ghost-backend"
-#   location            = "${var.loc}"
-#   resource_group_name = "${var.rg}"
+#   location            = var.loc
+#   resource_group_name = var.rg
 
 #   sku {
 #     name = "B_Gen4_2"
@@ -110,25 +157,25 @@
 #     geo_redundant_backup = "Disabled"
 #   }
 
-#   administrator_login = "${var.sqladmin}"
-#   administrator_login_password = "${var.sqlpwd}"
+#   administrator_login = var.sqladmin
+#   administrator_login_password = var.sqlpwd
 #   version = "5.7"
 #   ssl_enforcement = "Disabled"
 # }
 
 # resource "azurerm_mysql_database" "ghost" {
 #   name                = "ghost"
-#   resource_group_name = "${var.rg}"
-#   server_name         = "${azurerm_mysql_server.ghost-be.name}"
+#   resource_group_name = var.rg
+#   server_name         = azurerm_mysql_server.ghost-be.name
 #   charset             = "utf8"
 #   collation           = "utf8_unicode_ci"
 # }
 
 # resource "azurerm_mysql_firewall_rule" "allow-ghost-fe" {
 #   name                  = "allow-ghost-fe"
-#   resource_group_name   = "${var.rg}"
+#   resource_group_name   = var.rg
 
-#   server_name           = "${azurerm_mysql_server.ghost-be.name}"
+#   server_name           = azurerm_mysql_server.ghost-be.name
 
 #   start_ip_address      = "0.0.0.0"     # Allow only internal Azure IP
 #   end_ip_address        = "0.0.0.0"     # Allow only internal Azure IP
