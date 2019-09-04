@@ -10,10 +10,20 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '0.12.7'
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'ADX XPlat PM SP'
+    backendAzureRmResourceGroupName: 'oss-int-tfstate'
+    backendAzureRmStorageAccountName: 'ossinttfstate'
+    backendAzureRmContainerName: 'tf-state'
+    backendAzureRmKey: 'team-state'
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    environmentServiceNameAzureRM: 'ADX XPlat PM SP'
