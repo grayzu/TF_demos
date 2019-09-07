@@ -19,19 +19,6 @@ variables:
   location: 'West US 2'
 
 stages:
-# Verify Terraform template syntax
-- stage: Verify
-  jobs:
-  - job: Verify
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    steps:
-      - task: TerraformTaskV1@0
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-          workingDirectory: '$(workingDirectory)'
-        displayName: Validate the Terraform template format
 
 # Deploy to Staging
 - stage: Staging
