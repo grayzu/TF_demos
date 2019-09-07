@@ -6,6 +6,8 @@ trigger:
   paths:
     include:
     - Demo1/*
+    - azure-pipelines-demo1.yml
+    - azure-pipelines-terraform-release.yml
 
 pr:
   autoCancel: true
