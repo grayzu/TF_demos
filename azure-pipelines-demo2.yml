@@ -5,8 +5,8 @@ trigger:
     - master
   paths:
     include:
-    - Demo@/*
-    - azure-pipelines-demo1.yml
+    - Demo2/*
+    - azure-pipelines-demo2.yml
     - azure-pipelines-terraform-release.yml
 
 pr:

@@ -6,7 +6,7 @@
 ##############################################
 
 resource "azurerm_resource_group" "ghost-rg" {
-    name                    = var.rg
+   name                    = "${var.name}-${var.environment}-rg"
     location                = var.loc
     tags                    = var.tags
 }
