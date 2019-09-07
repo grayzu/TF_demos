@@ -30,7 +30,6 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      commandOptions: '-o $(rg).tfplan'
       environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
       workingDirectory: ${{ parameters.workingDirectory }}
 
