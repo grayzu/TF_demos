@@ -34,6 +34,7 @@ stages:
       azureSubscription: $(sandboxAzureSubscription)
       workingDirectory: $(workingDirectory)
       name: '$(name)'
+      environment: 'staging'
       
 
 # Deploy to Production
@@ -47,4 +48,5 @@ stages:
       azureSubscription: $(productionAzureSubscription)
       workingDirectory: $(workingDirectory)
       name: '$(name)'
+      environment: 'production'
       
