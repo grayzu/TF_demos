@@ -19,7 +19,7 @@ variables:
   storageAccountName: mtcdenterraformsandbox
   workingDirectory: '$(System.DefaultWorkingDirectory)/Demo1'
   location: 'West US 2'
-  name: demo1
+  name: hashiconf-demo1
 
 stages:
 
@@ -33,7 +33,7 @@ stages:
       storageAccountKey: $(storageAccountKey)
       azureSubscription: $(sandboxAzureSubscription)
       workingDirectory: $(workingDirectory)
-      name: 'hashiconf-$(name)'
+      name: '$(name)'
       environment: 'staging'      
 
 # Deploy to Production
@@ -46,6 +46,6 @@ stages:
       storageAccountKey: $(storageAccountKey)
       azureSubscription: $(productionAzureSubscription)
       workingDirectory: $(workingDirectory)
-      name: 'hashiconf-$(name)'
+      name: '$(name)'
       environment: 'production'
       

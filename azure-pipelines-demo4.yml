@@ -5,8 +5,8 @@ trigger:
     - master
   paths:
     include:
-    - Demo2/*
-    - azure-pipelines-demo2.yml
+    - Demo$/*
+    - azure-pipelines-demo4.yml
     - azure-pipelines-terraform-release.yml
 
 pr:
@@ -17,9 +17,9 @@ variables:
   productionAzureSubscription: 'MTC Denver Production'
   storageAccountRg: demo-terraform-sandbox-rg
   storageAccountName: mtcdenterraformsandbox
-  workingDirectory: '$(System.DefaultWorkingDirectory)/Demo2'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Demo4'
   location: 'West US 2'
-  name: hashiconf-demo2
+  name: hashiconf-demo4
 
 stages:
 
@@ -34,6 +34,7 @@ stages:
       azureSubscription: $(sandboxAzureSubscription)
       workingDirectory: $(workingDirectory)
       name: '$(name)'
+      
 
 # Deploy to Production
 - stage: Production
@@ -46,4 +47,4 @@ stages:
       azureSubscription: $(productionAzureSubscription)
       workingDirectory: $(workingDirectory)
       name: '$(name)'
-    
+      
