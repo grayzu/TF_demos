@@ -3,7 +3,8 @@ parameters:
   storageAccountRg:
   storageAccountName:
   storageAccountKey:
-  rg:
+  name:
+  environment:
   workingDirectory:
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      commandOptions: '-out ${{ parameters.rg }}.tfplan -var rg="${{ parameters.rg }}"'
+      commandOptions: '-out ${{ parameters.rg }}.tfplan -var name="${{ parameters.name }}" -var environment="${{ parameters.environment }}"'
       environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
       workingDirectory: ${{ parameters.workingDirectory }}
 
@@ -41,6 +42,6 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      commandOptions: '${{ parameters.rg }}.tfplan'
+      commandOptions: '-out ${{ parameters.rg }}.tfplan -var name="${{ parameters.name }}" -var environment="${{ parameters.environment }}"'
       environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
       workingDirectory: ${{ parameters.workingDirectory }}

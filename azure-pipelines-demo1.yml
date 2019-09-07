@@ -33,8 +33,8 @@ stages:
       storageAccountKey: $(storageAccountKey)
       azureSubscription: $(sandboxAzureSubscription)
       workingDirectory: $(workingDirectory)
-      rg: 'hashiconf-$(name)-staging-rg'
-      
+      name: 'hashiconf-$(name)'
+      environment: 'staging'      
 
 # Deploy to Production
 - stage: Production
@@ -46,5 +46,6 @@ stages:
       storageAccountKey: $(storageAccountKey)
       azureSubscription: $(productionAzureSubscription)
       workingDirectory: $(workingDirectory)
-      rg: 'hashiconf-$(name)-production-rg'
+      name: 'hashiconf-$(name)'
+      environment: 'production'
       
