@@ -1,5 +1,5 @@
 module "routetable" {
-  source              = "demo-module"
+  source              = "./demo-module"
   
   resource_group_name = "${var.name}-${var.environment}-rg"
   location            = "westus"
