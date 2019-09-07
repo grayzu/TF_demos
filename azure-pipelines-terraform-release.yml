@@ -1,11 +1,11 @@
 parameters:
   azureSubscription:
+  storageAccountRg:
   storageAccountName:
   storageAccountKey:
   rg:
   loc:
   workingDirectory:
-
 
 jobs:
 - job: Deploy
@@ -18,12 +18,12 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'init'
-      backendServiceArm: $(azureSubscription)
-      backendAzureRmResourceGroupName: $(storageAccountRg)
-      backendAzureRmStorageAccountName: $(storageAccountName)
+      backendServiceArm: ${{ parameters.azureSubscription }}
+      backendAzureRmResourceGroupName: ${{ parameters.storageAccountRg }}
+      backendAzureRmStorageAccountName: ${{ parameters.storageAccountName }}
       backendAzureRmContainerName: 'tfstate'
-      backendAzureRmKey: $(storageAccountKey)
-      workingDirectory: $(workingDirectory)
+      backendAzureRmKey: ${{ parameters.storageAccountKey }}
+      workingDirectory: ${{ parameters.workingDirectory }}
 
   # Terraform plan
   - task: TerraformTaskV1@0
@@ -31,13 +31,13 @@ jobs:
       provider: 'azurerm'
       command: 'plan'
       commandOptions: '-o $(rg).tfplan'
-      environmentServiceNameAzureRM: $(azureSubscription)
-      workingDirectory: $(workingDirectory)
+      environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
+      workingDirectory: ${{ parameters.workingDirectory }}
 
   # Terraform apply
   - task: TerraformTaskV1@0
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      environmentServiceNameAzureRM: $(azureSubscription)
-      workingDirectory: $(workingDirectory)
+      environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
+      workingDirectory: ${{ parameters.workingDirectory }}
