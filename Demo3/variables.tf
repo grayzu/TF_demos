@@ -17,16 +17,20 @@ variable "tags" {
 
 variable "sqladmin" {
     description             = "Name for MySQL administrator account"
+    value = "root"
 }
 
 variable "sqlpwd" {
     description             = "Password for MySQL administrator account"
+    value = "aC00lSQLPa$$word"
 }
 
 variable "mysql" {
     description             = "MySQL Server instance name"
+    value = "mysqlserver"
 }
 
 variable "dbname" {
     description             = "Name of the MySQL database to be used by Ghost"
+    value = "ghostdb"
 }

@@ -19,6 +19,7 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'init'
+      commandOptions: '-input=false'
       backendServiceArm: ${{ parameters.azureSubscription }}
       backendAzureRmResourceGroupName: ${{ parameters.storageAccountRg }}
       backendAzureRmStorageAccountName: ${{ parameters.storageAccountName }}
@@ -32,7 +33,7 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      commandOptions: '-out ${{ parameters.rg }}.tfplan -var name="${{ parameters.name }}" -var environment="${{ parameters.environment }}"'
+      commandOptions: '-input=false -out ${{ parameters.rg }}.tfplan -var name="${{ parameters.name }}" -var environment="${{ parameters.environment }}"'
       environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
       workingDirectory: ${{ parameters.workingDirectory }}
 
