@@ -42,6 +42,6 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      commandOptions: '-out ${{ parameters.rg }}.tfplan -var name="${{ parameters.name }}" -var environment="${{ parameters.environment }}"'
+      commandOptions: '${{ parameters.rg }}.tfplan'
       environmentServiceNameAzureRM: ${{ parameters.azureSubscription }}
       workingDirectory: ${{ parameters.workingDirectory }}
