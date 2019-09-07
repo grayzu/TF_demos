@@ -1,0 +1,59 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Demo1/*
+
+pr:
+  autoCancel: true
+ 
+variables:
+  sandboxAzureSubscription: 'MTC Denver Sandbox'
+  productionAzureSubscription: 'MTC Denver Production'
+  storageAccountRg: demo-terraform-sandbox-rg
+  storageAccountName: mtcdenterraformsandbox
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Demo1'
+  location: 'West US 2'
+
+stages:
+# Verify Terraform template syntax
+- stage: Verify
+  jobs:
+  - job: Verify
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+          workingDirectory: '$(workingDirectory)'
+        displayName: Validate the Terraform template format
+
+# Deploy to Staging
+- stage: Staging
+  jobs:
+  - template: azure-pipelines-terraform-release.yml
+    parameters:
+      storageAccountRg: $(storageAccountRg)
+      storageAccountName: $(storageAccountName)
+      storageAccountKey: $(storageAccountKey)
+      azureSubscription: $(sandboxAzureSubscription)
+      loc: $(location)
+      rg: 'hashiconf-demo1-staging-rg'
+
+# Deploy to Production
+- stage: Production
+  jobs:
+  - template: azure-pipelines-terraform-release.yml
+    parameters:
+      storageAccountRg: $(storageAccountRg)
+      storageAccountName: $(storageAccountName)
+      storageAccountKey: $(storageAccountKey)
+      azureSubscription: $(productionAzureSubscription)
+      loc: $(location)
+      rg: 'hashiconf-demo1-production-rg'
+      

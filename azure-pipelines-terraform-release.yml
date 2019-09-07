@@ -1,0 +1,43 @@
+parameters:
+  azureSubscription:
+  storageAccountName:
+  storageAccountKey:
+  rg:
+  loc:
+  workingDirectory:
+
+
+jobs:
+- job: Deploy
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  # Terraform Init
+  - task: TerraformTaskV1@0
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: $(azureSubscription)
+      backendAzureRmResourceGroupName: $(storageAccountRg)
+      backendAzureRmStorageAccountName: $(storageAccountName)
+      backendAzureRmContainerName: 'tfstate'
+      backendAzureRmKey: $(storageAccountKey)
+      workingDirectory: $(workingDirectory)
+
+  # Terraform plan
+  - task: TerraformTaskV1@0
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      commandOptions: '-o $(rg).tfplan'
+      environmentServiceNameAzureRM: $(azureSubscription)
+      workingDirectory: $(workingDirectory)
+
+  # Terraform apply
+  - task: TerraformTaskV1@0
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      environmentServiceNameAzureRM: $(azureSubscription)
+      workingDirectory: $(workingDirectory)
