@@ -1,0 +1,47 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Demo$/*
+    - azure-pipelines-demo4.yml
+    - azure-pipelines-terraform-release.yml
+
+pr:
+  autoCancel: true
+ 
+variables:
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Demo4'
+  name: hashiconf-demo4
+
+stages:
+
+# Deploy to Staging
+- stage: Staging
+  jobs:
+  - template: azure-pipelines-terraform-release.yml
+    parameters:
+      storageAccountRg: $(storageAccountRg)
+      storageAccountName: $(storageAccountName)
+      storageAccountKey: $(storageAccountKey)
+      azureSubscription: $(sandboxAzureSubscription)
+      workingDirectory: $(workingDirectory)
+      name: '$(name)'
+      environment: 'staging'
+      
+
+# Deploy to Production
+- stage: Production
+  jobs:
+  - template: azure-pipelines-terraform-release.yml
+    parameters:
+      storageAccountRg: $(storageAccountRg)
+      storageAccountName: $(storageAccountName)
+      storageAccountKey: $(storageAccountKey)
+      azureSubscription: $(productionAzureSubscription)
+      workingDirectory: $(workingDirectory)
+      name: '$(name)'
+      environment: 'production'
+      
