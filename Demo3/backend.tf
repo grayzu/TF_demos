@@ -8,7 +8,7 @@
 
 # Use to provision MySQL backend for ghost
 resource "azurerm_mysql_server" "ghost-be" {
-  name                = "ghost-backend"
+  name                = "${var.name}-ghost-backend-${var.environment}"
   location            = var.loc
   resource_group_name = azurerm_resource_group.ghost-rg.name
 
