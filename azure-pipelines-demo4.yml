@@ -13,12 +13,7 @@ pr:
   autoCancel: true
  
 variables:
-  sandboxAzureSubscription: 'MTC Denver Sandbox'
-  productionAzureSubscription: 'MTC Denver Production'
-  storageAccountRg: demo-terraform-sandbox-rg
-  storageAccountName: mtcdenterraformsandbox
   workingDirectory: '$(System.DefaultWorkingDirectory)/Demo4'
-  location: 'West US 2'
   name: hashiconf-demo4
 
 stages:
